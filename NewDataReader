@@ -1,0 +1,29 @@
+import time
+import os
+import sqlite3
+
+
+def newdata():
+    while True:
+        try: # Hier probeert het programma 'sensorcheck.txt' te openen. Als dit niet lukt probeert het programma het opnieuw.
+        #os.system('ls /home/pi/share') # Update de directory    INSERT PATH
+            os.scandir('C:/Users/Jesse/PycharmProjects/ptwproject')
+            with open('nieuwemeting.txt', 'r+') as myfile:
+                newdata = myfile.read().split(',')
+
+                to_replace_containerID = str(newdata[0])
+                to_replace_garbagelevel = str(newdata[1])
+                datum = str(newdata[2])
+                to_replace_containerID = int(to_replace_containerID[1:])
+                to_replace_garbagelevel = int(to_replace_garbagelevel[1:])
+                datum = datum[2:-2]
+                list = [to_replace_containerID, to_replace_garbagelevel, datum]
+                print(list)
+                time.sleep(5)     #900 seconde = kwartier
+            os.remove('nieuwemeting.txt')
+
+        except FileNotFoundError:
+            print('Niks')
+            time.sleep(3)
+
+newdata()
