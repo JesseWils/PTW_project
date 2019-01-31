@@ -1,5 +1,6 @@
 from flask import Flask
 import sqlite3
+from flask import request
 
 conn = sqlite3.connect('test.db')
 c = conn.cursor()
@@ -73,5 +74,6 @@ def hello2():
     return tekst_compleet_all
 
 
+
 if __name__ == "__main__":
-    app.run()
+    app.run(host= '0.0.0.0')

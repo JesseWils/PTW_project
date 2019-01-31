@@ -6,32 +6,32 @@ conn = sqlite3.connect('test.db')
 
 c = conn.cursor()
 
-try:
-    c.execute("""CREATE TABLE inzamellocatie (
-                locatieID INTEGER PRIMARY KEY,
-                adres TEXT
-                )""")
-
-    c.execute("""CREATE TABLE container (
-                containerID INTEGER PRIMARY KEY,
-                vuilnisniveau INTEGER,
-                locatieID INTEGER,
-                datumLaatsteUpdate TEXT,
-                FOREIGN KEY(locatieID) REFERENCES inzamellocatie(locatieID)
-                )""")
-
-    c.execute("""CREATE TABLE gemeente (
-                gemeenteID INTEGER PRIMARY KEY,
-                gemeentenaam TEXT
-                )""")
-
-    c.execute("""CREATE TABLE bewoner (
-                burgerservicennummer INTEGER PRIMARY KEY,
-                naam TEXT,
-                adres TEXT
-                )""")
-except sqlite3.OperationalError:
-    print('tables already exist')
+# try:
+#     c.execute("""CREATE TABLE inzamellocatie (
+#                 locatieID INTEGER PRIMARY KEY,
+#                 adres TEXT
+#                 )""")
+#
+#     c.execute("""CREATE TABLE container (
+#                 containerID INTEGER PRIMARY KEY,
+#                 vuilnisniveau INTEGER,
+#                 locatieID INTEGER,
+#                 datumLaatsteUpdate TEXT,
+#                 FOREIGN KEY(locatieID) REFERENCES inzamellocatie(locatieID)
+#                 )""")
+#
+#     c.execute("""CREATE TABLE gemeente (
+#                 gemeenteID INTEGER PRIMARY KEY,
+#                 gemeentenaam TEXT
+#                 )""")
+#
+#     c.execute("""CREATE TABLE bewoner (
+#                 burgerservicennummer INTEGER PRIMARY KEY,
+#                 naam TEXT,
+#                 adres TEXT
+#                 )""")
+# except sqlite3.OperationalError:
+#     print('tables already exist')
 
 
 def add_container(newcontainer):
@@ -45,6 +45,7 @@ def delete_container(containerid):
 def update_vuilnisniveau(containerid, newniveau, newdate):
     with conn:
         c.execute("UPDATE container SET vuilnisniveau = (?), datumLaatsteUpdate = (?) WHERE containerID = (?)", (newniveau, newdate, containerid))
+    print('geupdate')
 
 def read_container():
     c.execute("SELECT containerID FROM container WHERE vuilnisniveau >= 80")
@@ -69,15 +70,14 @@ def read_container():
 # add_container(new_container8)
 # delete_container(2)
 
-c.execute("SELECT * FROM container")
-print(c.fetchall())
+# c.execute("SELECT * FROM container")
+# print(c.fetchall())
+#
 
-c.execute("SELECT * FROM container WHERE vuilnisniveau >= 80")
-print(c.fetchall())
 
-update_vuilnisniveau(1, 55, 'zondag blah blah blah')
-c.execute("SELECT * FROM container")
-print(c.fetchall())
+update_vuilnisniveau(1, 90, 'is ie veranderd?')
+# c.execute("SELECT * FROM container")
+# print(c.fetchall())
 
 
 conn.commit()
