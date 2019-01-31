@@ -1,6 +1,5 @@
 from flask import Flask
 import sqlite3
-from flask import request
 
 conn = sqlite3.connect('test.db')
 c = conn.cursor()
@@ -65,7 +64,29 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    global tekst_compleet
+    conn = sqlite3.connect('test.db')
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM container WHERE vuilnisniveau >= 85")
+    abc = (c.fetchall())
+    newlist = []
+    for item in abc:
+        newlist.append([item[0], item[1], item[2], item[3]])
+
+    flasktext = 'De volgende containers zijn bijna vol: <br/> <br/>'
+    formatgedoe = []
+    for item in newlist:
+        flasktext += 'container nr. {} op verzamellocatie {} zit {}% vol<br/> Container niveau is het laats geupdate op: {}<br/> <br/>'
+    nummer = 0
+    for item in newlist:
+        formatgedoe.append(newlist[nummer][0])
+        formatgedoe.append(newlist[nummer][2])
+        formatgedoe.append(newlist[nummer][1])
+        formatgedoe.append(newlist[nummer][3])
+        nummer += 1
+    tekst_compleet = flasktext.format(*formatgedoe)
+
+
     return tekst_compleet
 
 @app.route("/allecontainers")

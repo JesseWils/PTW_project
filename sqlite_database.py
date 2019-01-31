@@ -6,32 +6,32 @@ conn = sqlite3.connect('test.db')
 
 c = conn.cursor()
 
-# try:
-#     c.execute("""CREATE TABLE inzamellocatie (
-#                 locatieID INTEGER PRIMARY KEY,
-#                 adres TEXT
-#                 )""")
-#
-#     c.execute("""CREATE TABLE container (
-#                 containerID INTEGER PRIMARY KEY,
-#                 vuilnisniveau INTEGER,
-#                 locatieID INTEGER,
-#                 datumLaatsteUpdate TEXT,
-#                 FOREIGN KEY(locatieID) REFERENCES inzamellocatie(locatieID)
-#                 )""")
-#
-#     c.execute("""CREATE TABLE gemeente (
-#                 gemeenteID INTEGER PRIMARY KEY,
-#                 gemeentenaam TEXT
-#                 )""")
-#
-#     c.execute("""CREATE TABLE bewoner (
-#                 burgerservicennummer INTEGER PRIMARY KEY,
-#                 naam TEXT,
-#                 adres TEXT
-#                 )""")
-# except sqlite3.OperationalError:
-#     print('tables already exist')
+try:
+    c.execute("""CREATE TABLE inzamellocatie (
+                locatieID INTEGER PRIMARY KEY,
+                adres TEXT
+                )""")
+
+    c.execute("""CREATE TABLE container (
+                containerID INTEGER PRIMARY KEY,
+                vuilnisniveau INTEGER,
+                locatieID INTEGER,
+                datumLaatsteUpdate TEXT,
+                FOREIGN KEY(locatieID) REFERENCES inzamellocatie(locatieID)
+                )""")
+
+    c.execute("""CREATE TABLE gemeente (
+                gemeenteID INTEGER PRIMARY KEY,
+                gemeentenaam TEXT
+                )""")
+
+    c.execute("""CREATE TABLE bewoner (
+                burgerservicennummer INTEGER PRIMARY KEY,
+                naam TEXT,
+                adres TEXT
+                )""")
+except sqlite3.OperationalError:
+    print('tables already exist')
 
 
 def add_container(newcontainer):
@@ -75,7 +75,7 @@ def read_container():
 #
 
 
-update_vuilnisniveau(1, 90, 'is ie veranderd?')
+update_vuilnisniveau(1, 90, 'eoaghuipaehus[')
 # c.execute("SELECT * FROM container")
 # print(c.fetchall())
 
