@@ -2,7 +2,7 @@ import sqlite3
 import time
 
 
-conn = sqlite3.connect('test.db')
+conn = sqlite3.connect('PTWproject.db')
 
 c = conn.cursor()
 
@@ -50,24 +50,24 @@ def update_vuilnisniveau(containerid, newniveau, newdate):
 def read_container():
     c.execute("SELECT containerID FROM container WHERE vuilnisniveau >= 80")
 
-# c.execute("INSERT INTO container VALUES (0001, 98, 1, 'maandag blah blah')")
-# c.execute("INSERT INTO container VALUES (0002, 43, 1, 'dinsdag blah blah')")
-# c.execute("INSERT INTO container VALUES (0003, 83, 1, 'zaterdag blah blah')")
+c.execute("INSERT INTO container VALUES (1, 0, 1, 'Thu 31 January 16:01:08')")
+c.execute("INSERT INTO container VALUES (2, 43, 1, 'Thu 31 January 14:04:45')")
+c.execute("INSERT INTO container VALUES (3, 83, 1, 'Wed 30 January 11:34:23')")
 # c.execute("SELECT * FROM container WHERE vuilnisniveau >= 50")
 
-# new_container3 = [4, 0, 1, 'dins']
-# new_container4 = [5, 0, 2, 'woens']
-# new_container5 = [6, 0, 2, 'februari']
-# new_container6 = [7, 0, 2, 'december']
-# new_container7 = [8, 80, 3, '3-6-2019']
-# new_container8 = [9, 99, 3, 'vandaag']
+new_container3 = [4, 89, 1, 'Thu 31 Januari 15:45:56']
+new_container4 = [5, 34, 2, 'Thu 31 Januari 11:15:37']
+new_container5 = [6, 12, 2, 'Thu 31 Januari 03:39:51']
+new_container6 = [7, 65, 2, 'Thu 31 Januari 13:38:42']
+new_container7 = [8, 80, 3, 'Thu 31 Januari 15:13:45']
+new_container8 = [9, 99, 3, 'Thu 31 Januari 12:47:12']
 
-# add_container(new_container3)
-# add_container(new_container4)
-# add_container(new_container5)
-# add_container(new_container6)
-# add_container(new_container7)
-# add_container(new_container8)
+add_container(new_container3)
+add_container(new_container4)
+add_container(new_container5)
+add_container(new_container6)
+add_container(new_container7)
+add_container(new_container8)
 # delete_container(2)
 
 # c.execute("SELECT * FROM container")
@@ -75,7 +75,7 @@ def read_container():
 #
 
 
-update_vuilnisniveau(1, 90, 'eoaghuipaehus[')
+# update_vuilnisniveau(1, 90, 'eoaghuipaehus[')
 # c.execute("SELECT * FROM container")
 # print(c.fetchall())
 
@@ -83,31 +83,31 @@ update_vuilnisniveau(1, 90, 'eoaghuipaehus[')
 conn.commit()
 
 
-def newdata():
-    global list
-    while True:
-        try: # Hier probeert het programma 'sensorcheck.txt' te openen. Als dit niet lukt probeert het programma het opnieuw.
-            #os.system('ls /home/pi/share') # Update de directory
-            with open('nieuwemeting.txt', 'r+') as myfile:
-                newdata = myfile.read().split(',')
-
-            to_replace_containerID = str(newdata[0])
-            to_replace_garbagelevel = str(newdata[1])
-            datum = str(newdata[2])
-            to_replace_containerID = int(to_replace_containerID[1:])
-            to_replace_garbagelevel = int(to_replace_garbagelevel[1:])
-            datum = datum[2:-2]
-            list = [to_replace_containerID, to_replace_garbagelevel, datum]
-            print(list)
-            time.sleep(900)     #900 seconde = kwartier
-    #       os.remove('nieuwemeting.txt')
-
-        except FileNotFoundError:
-            time.sleep(900)
-            print('Niks')
-
-newdata()
-
-update_vuilnisniveau(list[0], list[1], list[2])
+# def newdata():
+#     global list
+#     while True:
+#         try: # Hier probeert het programma 'sensorcheck.txt' te openen. Als dit niet lukt probeert het programma het opnieuw.
+#             #os.system('ls /home/pi/share') # Update de directory
+#             with open('nieuwemeting.txt', 'r+') as myfile:
+#                 newdata = myfile.read().split(',')
+#
+#             to_replace_containerID = str(newdata[0])
+#             to_replace_garbagelevel = str(newdata[1])
+#             datum = str(newdata[2])
+#             to_replace_containerID = int(to_replace_containerID[1:])
+#             to_replace_garbagelevel = int(to_replace_garbagelevel[1:])
+#             datum = datum[2:-2]
+#             list = [to_replace_containerID, to_replace_garbagelevel, datum]
+#             print(list)
+#             time.sleep(900)     #900 seconde = kwartier
+#     #       os.remove('nieuwemeting.txt')
+#
+#         except FileNotFoundError:
+#             time.sleep(900)
+#             print('Niks')
+#
+# newdata()
+#
+# update_vuilnisniveau(list[0], list[1], list[2])
 
 conn.close()

@@ -3,7 +3,7 @@ import sqlite3
 import time
 
 
-conn = sqlite3.connect('test.db')
+conn = sqlite3.connect('PTWproject.db')
 
 c = conn.cursor()
 
@@ -38,8 +38,8 @@ while True:
     to_replace_garbagelevel = int(to_replace_garbagelevel[1:])
     datum = datum[2:-2]
     list = [to_replace_containerID, to_replace_garbagelevel, datum]
-    print(list)
 
     update_vuilnisniveau(list[0], list[1], list[2])
+
     conn.commit()
     time.sleep(5)
