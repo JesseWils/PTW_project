@@ -24,11 +24,14 @@ def httpconnect(action):
 
 def update_vuilnisniveau(containerid, newniveau, newdate):
     with conn:
+        #clause om data base te update met nieuwe gegevens)
         c.execute("UPDATE container SET vuilnisniveau = (?), datumLaatsteUpdate = (?) WHERE containerID = (?)",(newniveau, newdate, containerid))
     print('geupdate')
 
 while True:
+    #connect met local host van pi
     httpconnect('')
+    #data wordt zo bewerkt tot een list wat gebruikt kan worden om de update uit te voeren (van list in een string naar gewoon list)
     newdata = nieuwe_meet_data.split(',')
 
     to_replace_containerID = str(newdata[0])
@@ -38,8 +41,9 @@ while True:
     to_replace_garbagelevel = int(to_replace_garbagelevel[1:])
     datum = datum[2:-2]
     list = [to_replace_containerID, to_replace_garbagelevel, datum]
-
+    #update database
     update_vuilnisniveau(list[0], list[1], list[2])
 
     conn.commit()
+    #wacht tot volgende update
     time.sleep(5)

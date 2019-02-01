@@ -40,11 +40,12 @@ while True:
           tijd = time.strftime('%a %d %B %H:%M:%S')
           list = [containerID, procent, tijd]
           print(list)
+          # update de file met nieuwste meting
           with open('nieuwemeting.txt', 'w+') as myfile:
                myfile.write(str(list))
           print("Distance:", distance,"cm")
 
     finally:
           GPIO.cleanup()
-
+      # wacht tot de volgende meting (tijd kan veranderd worden)
           time.sleep(3)
